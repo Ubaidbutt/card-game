@@ -13,11 +13,17 @@ export default class Deck {
         this.cards = shuffleFn(this.cards);
     }
 
-    splitCards(n: number = 2): number[][] {
-        const chunkSize = Math.ceil(this.cards.length / n);
+    splitCards(n: number = 2): number[][] | never {
+        const totalCards = this.cards.length;
+
+        if (totalCards % n !== 0 || n < 0 || n > totalCards) {
+            throw new Error(`Cannot split the deck into ${n} equal chunks.`);
+        }
+
+        const chunkSize = totalCards / n;
         const result: number[][] = [];
 
-        for (let i = 0; i < this.cards.length; i += chunkSize) {
+        for (let i = 0; i < totalCards; i += chunkSize) {
           const chunk = this.cards.slice(i, i + chunkSize);
           result.push(chunk);
         }

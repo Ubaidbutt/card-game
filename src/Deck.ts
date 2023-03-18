@@ -2,7 +2,7 @@ export default class Deck {
     private cards: number[];
 
     constructor(numberOfCards: number) {
-        this.cards = this.cards = new Array(numberOfCards).fill(null).map((_, i) => i + 1);
+        this.cards = new Array(numberOfCards).fill(null).map((_, i) => i + 1);
     }
 
     getCards() {

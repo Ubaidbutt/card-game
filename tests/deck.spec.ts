@@ -20,21 +20,43 @@ describe("Deck class", () => {
     });
   });
 
-  describe("splitCards method", () => {
-    it("should return an array of arrays", () => {
-      const deck = new Deck(10);
+  describe('splitCards', () => {
+    it('should split the deck into 2 equal chunks', () => {
+      const deck = new Deck(52);
       const chunks = deck.splitCards(2);
-      expect(chunks).toBeInstanceOf(Array);
-      expect(chunks[0]).toBeInstanceOf(Array);
-      expect(chunks[1]).toBeInstanceOf(Array);
+      expect(chunks.length).toEqual(2);
+      expect(chunks[0].length).toEqual(26);
+      expect(chunks[1].length).toEqual(26);
     });
 
-    it("should return chunks of the correct size", () => {
-      const deck = new Deck(12);
+    it('should split the deck into 3 equal chunks', () => {
+      const deck = new Deck(39);
       const chunks = deck.splitCards(3);
-      expect(chunks[0].length).toBe(4);
-      expect(chunks[1].length).toBe(4);
-      expect(chunks[2].length).toBe(4);
+      expect(chunks.length).toEqual(3);
+      expect(chunks[0].length).toEqual(13);
+      expect(chunks[1].length).toEqual(13);
+      expect(chunks[2].length).toEqual(13);
+    });
+
+    it('should throw an error when trying to split the deck of 52 cards into 5 chunks', () => {
+      const deck = new Deck(52);
+      expect(() => {
+        deck.splitCards(5);
+      }).toThrowError('Cannot split the deck into 5 equal chunks.');
+    });
+
+    it('should throw an error when trying to split the deck of 52 cards into 0 chunks', () => {
+      const deck = new Deck(52);
+      expect(() => {
+        deck.splitCards(0);
+      }).toThrowError('Cannot split the deck into 0 equal chunks.');
+    });
+
+    it('should throw an error when trying to split the deck into more chunks than the total number of cards', () => {
+      const deck = new Deck(52);
+      expect(() => {
+        deck.splitCards(53);
+      }).toThrowError('Cannot split the deck into 53 equal chunks.');
     });
   });
 });

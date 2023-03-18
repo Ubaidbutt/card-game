@@ -11,4 +11,13 @@ It was a very open ended problem and could have been designed in different ways.
 
 You can use `src/config/config.ts` to update the number of players in the game or number of cards in a deck and the application will automatically pick up the changes given that cards can be equally divided among all the players.
 
-If you make any config changes, please run `npm run build` before starting the game with `npm run play`
+## Structure
+The project code is available under the `src` directory:
+
+- lib/shuffle.ts - shuffle function using Fisher-Yates shuffle algorithm but can easily be replaced with any other method
+- Deck.ts - Deck class
+    - I wanted to make `shuffleCards` method private and use it in `splitCards` methods internally without exposing it but I kept in public and separate since these two don't relate together and maybe we need `shuffleCards` separately when we extend the game
+- Player.ts - Player class
+- Game.ts - Game class
+
+- Index.ts - Combines all the classes to construct and play the game

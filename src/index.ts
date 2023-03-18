@@ -2,17 +2,24 @@ import Deck from "./Deck";
 import Game from "./Game";
 import Player from "./Player";
 import { shuffle } from './lib/shuffle';
+import config from './config/config';
+
+const { numberOfPlayersInAGame, numberOfCardsInADeck } = config;
 
 function main() {
     try {
-        const deck1 = new Deck(52);
-        deck1.shuffleCards(shuffle);
-        const cards = deck1.splitCards(2);
+        const deck = new Deck(numberOfCardsInADeck);
+        deck.shuffleCards(shuffle);
+        const cards = deck.splitCards(numberOfPlayersInAGame);
+
+        const players: Player[] = [];
+
+        for (let i=0; i<numberOfPlayersInAGame; i++) {
+            const player = new Player(cards[i], i+1);
+            players.push(player);
+        }
       
-        const p1 = new Player(cards[0], 1);
-        const p2 = new Player(cards[1], 2);
-      
-        const game = new Game([p1, p2]);
+        const game = new Game(players);
         game.play();
     } catch (error) {
         console.error("An error occurred:", error);

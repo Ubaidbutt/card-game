@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "play": "node dist/index.js",
+    "play": "npm run build && node dist/index.js",
     "test": "jest"
   },
   "keywords": [],
